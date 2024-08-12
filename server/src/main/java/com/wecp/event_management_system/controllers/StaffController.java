@@ -16,38 +16,26 @@ import java.util.List;
 @RequestMapping("/api/staff")
 public class StaffController {
 
-    // @Autowired
-    // private TaskService taskService;
-    // @Autowired
-    // private UserService userService;
-    // @GetMapping("/tasks/{staffId}")
-    // public ResponseEntity<List<Task>> getTasks(@PathVariable Long staffId) {
-    //     List<Task> tasks = taskService.getAssignedTasks(staffId);
-    //     return new ResponseEntity<>(tasks, HttpStatus.OK);
-    // }
-
- 
-
-    // @PutMapping("/tasks/{taskId}")
-    // public ResponseEntity<Task> updateTaskStatus(@PathVariable Long taskId, @RequestParam String status) {
-    //     Task task = taskService.updateTaskStatus(taskId, status);
-    //     return new ResponseEntity<>(task, HttpStatus.OK);
-    // }
-
     @Autowired
-    public TaskService taskService;
-   
+    private TaskService taskService;
+    @Autowired
+    private UserService userService;
     @GetMapping("/tasks/{staffId}")
-    public ResponseEntity<List<Task>> getTasks(@PathVariable Long staffId){
-        return new ResponseEntity<>(taskService.getAssignedTasks(staffId), HttpStatus.OK);
+    public ResponseEntity<List<Task>> getTasks(@PathVariable Long staffId) {
+        List<Task> tasks = taskService.getAssignedTasks(staffId);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    // public ResponseEntity<List<Staff>> getStaff() {
-    //     return new ResponseEntity<>(taskService.getAllTasks())
-    // }
+    @GetMapping("/all")
+    public ResponseEntity<List<Staff>> getStaff() {
+        List<Staff> staffs = userService.getAllStaff();
+        return new ResponseEntity<>(staffs, HttpStatus.OK);
+    }
 
     @PutMapping("/tasks/{taskId}")
     public ResponseEntity<Task> updateTaskStatus(@PathVariable Long taskId, @RequestParam String status) {
-        return new ResponseEntity<>(taskService.updateTaskStatus(taskId, status), HttpStatus.OK);
+        Task task = taskService.updateTaskStatus(taskId, status);
+        return new ResponseEntity<>(task, HttpStatus.OK);
     }
+   
 }

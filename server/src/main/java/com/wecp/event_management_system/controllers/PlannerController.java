@@ -16,83 +16,46 @@ import java.util.List;
 @RequestMapping("/api/planner")
 public class PlannerController {
 
-    // @Autowired
-    // private EventService eventService;
-
-    // @Autowired
-    // private TaskService taskService;
-
-    // @PostMapping("/event")
-    // public ResponseEntity<Event> createEvent(@RequestParam Long plannerId, @RequestBody Event event) {
-    //     Event createdEvent = eventService.createEvent(plannerId, event);
-    //     return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
-    // }
-
-    // @PutMapping("/event/{id}")
-    // public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event eventDetails) {
-    //     Event updatedEvent = eventService.updateEvent(id, eventDetails);
-    //     return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
-    // }
-
-    // @GetMapping("/events")
-    // public ResponseEntity<List<Event>> getEventsByPlanner(@RequestParam Long plannerId) {
-    //     List<Event> events = eventService.getEventsByPlanner(plannerId);
-    //     return new ResponseEntity<>(events, HttpStatus.OK);
-    // }
-
-    // @PostMapping("/task")
-    // public ResponseEntity<Task> createTask(@RequestBody Task task) {
-    //     Task createdTask = taskService.createTask(task);
-    //     return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
-    // }
-
-    // @GetMapping("/tasks")
-    // public ResponseEntity<List<Task>> getAllTasks() {
-    //     List<Task> tasks = taskService.getAllTasks();
-    //     return new ResponseEntity<>(tasks, HttpStatus.OK);
-    // }
-
-    // @PostMapping("/tasks/{taskId}/assign/{staffId}")
-    // public ResponseEntity<Task> assignTaskToStaff(@PathVariable Long taskId, @PathVariable Long staffId) {
-    //     Task assignedTask = taskService.assignTask(taskId, staffId);
-    //     return new ResponseEntity<>(assignedTask, HttpStatus.OK);
-    // }
-
+    @Autowired
+    private EventService eventService;
 
     @Autowired
-    public EventService eventService;
-
-    @Autowired
-    public TaskService taskService;
+    private TaskService taskService;
 
     @PostMapping("/event")
     public ResponseEntity<Event> createEvent(@RequestParam Long plannerId, @RequestBody Event event) {
-        return new ResponseEntity<Event>(eventService.createEvent(plannerId, event), HttpStatus.CREATED);
+        Event createdEvent = eventService.createEvent(plannerId, event);
+        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/event/{id}") 
+    @PutMapping("/event/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event eventDetails) {
-        return new ResponseEntity<Event>(eventService.updateEvent(id, eventDetails), HttpStatus.OK);
+        Event updatedEvent = eventService.updateEvent(id, eventDetails);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 
     @GetMapping("/events")
-    public ResponseEntity<List<Event>> getEventsByPlanner(@RequestParam Long plannerId){
-        return new ResponseEntity<>(eventService.getEventsByPlanner(plannerId), HttpStatus.OK);
-    } 
+    public ResponseEntity<List<Event>> getEventsByPlanner(@RequestParam Long plannerId) {
+        List<Event> events = eventService.getEventsByPlanner(plannerId);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
 
     @PostMapping("/task")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) { 
-        return new ResponseEntity<>(taskService.createTask(task), HttpStatus.CREATED);
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        Task createdTask = taskService.createTask(task);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
-    @GetMapping("/tasks") 
+    @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllTasks() {
-        return new ResponseEntity<>(taskService.getAllTasks(), HttpStatus.OK);
+        List<Task> tasks = taskService.getAllTasks();
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    @PostMapping("/tasks/{taskId}/assign/{staffId}") 
+    @PostMapping("/tasks/{taskId}/assign/{staffId}")
     public ResponseEntity<Task> assignTaskToStaff(@PathVariable Long taskId, @PathVariable Long staffId) {
-        return new ResponseEntity<>(taskService.assignTask(taskId, staffId), HttpStatus.OK);
+        Task assignedTask = taskService.assignTask(taskId, staffId);
+        return new ResponseEntity<>(assignedTask, HttpStatus.OK);
     }
 
 

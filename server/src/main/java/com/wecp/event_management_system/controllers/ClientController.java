@@ -1,3 +1,5 @@
+// get all events and return them with status code 200 ok
+// update the feedback of the event with the given eventId and return the updated event with status code 200 ok
 package com.wecp.event_management_system.controllers;
  
 import com.wecp.event_management_system.entities.Client;
@@ -16,36 +18,23 @@ import java.util.List;
 @RequestMapping("/api/client")
 public class ClientController {
  
-    // @Autowired
-    // private EventService eventService;
-
-
-    // @GetMapping("/events")
-    // public ResponseEntity<List<Event>> getEvents(){
-    //     List<Event> events=eventService.getAllEvents();
-    //     return new ResponseEntity<>(events, HttpStatus.OK);
-
-    // }
-    
-    // @PutMapping("/event/{eventId}")
-    // public ResponseEntity<Event> updateFeedback(@PathVariable Long eventId, @RequestParam String feedback){
-    //     Event updateEvent=eventService.updateFeedback(eventId, feedback);
-    //     return new ResponseEntity<Event>(updateEvent, HttpStatus.OK);
-       
-       
-    // }
-
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/events")
-    public ResponseEntity<List<Event>> getEvents() {
-        return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
-    }
 
-    @PutMapping("/event/{eventId}") 
+    @GetMapping("/events")
+    public ResponseEntity<List<Event>> getEvents(){
+        List<Event> events=eventService.getAllEvents();
+        return new ResponseEntity<>(events, HttpStatus.OK);
+
+    }
+    
+    @PutMapping("/event/{eventId}")
     public ResponseEntity<Event> updateFeedback(@PathVariable Long eventId, @RequestParam String feedback){
-        return new ResponseEntity<Event>(eventService.updateFeedback(eventId, feedback), HttpStatus.OK);
+        Event updateEvent=eventService.updateFeedback(eventId, feedback);
+        return new ResponseEntity<Event>(updateEvent, HttpStatus.OK);
+       
+       
     }
 
  

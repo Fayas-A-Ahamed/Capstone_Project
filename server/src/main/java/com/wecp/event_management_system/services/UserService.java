@@ -64,6 +64,9 @@ public class UserService implements UserDetailsService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    // public List<User> getUser(){
+    //     return userRepository.findAll();
+    // }
     public List<Staff> getAllStaff() {
         return staffRepository.findAll();
     }
@@ -81,8 +84,9 @@ public class UserService implements UserDetailsService {
     }
 
     private void copyProperties(User source, User target) {
+        //target.setId(source.getId()); // extra codes written
         target.setUsername(source.getUsername());
-        target.setEmail(source.getEmail());
+        //target.setEmail(source.getEmail());
         target.setPassword(passwordEncoder.encode(source.getPassword()));
         target.setRole(source.getRole());
     }

@@ -22,13 +22,18 @@ public class PlannerController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/event")
-    public ResponseEntity<Event> createEvent(@RequestParam Long plannerId, @RequestBody Event event) {
+    @PostMapping("/events")
+    public ResponseEntity<Event> createEvent(@PathVariable Long plannerId, @RequestBody Event event) {
         Event createdEvent = eventService.createEvent(plannerId, event);
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/event/{id}")
+    @GetMapping("/event")
+    public ResponseEntity<List<Event>> getAllEvents(){
+        return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
+    }
+
+    @PutMapping("/events/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event eventDetails) {
         Event updatedEvent = eventService.updateEvent(id, eventDetails);
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);

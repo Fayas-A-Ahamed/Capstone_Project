@@ -10,17 +10,11 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private LocalDateTime date;
-
     private String location;
-
     private String description;
-
     private String status;
-
     private String feedback;
 
     @ManyToOne

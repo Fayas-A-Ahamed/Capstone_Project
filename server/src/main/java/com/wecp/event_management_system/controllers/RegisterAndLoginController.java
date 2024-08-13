@@ -5,6 +5,9 @@ import com.wecp.event_management_system.dto.LoginResponse;
 import com.wecp.event_management_system.entities.User;
 import com.wecp.event_management_system.jwt.JwtUtil;
 import com.wecp.event_management_system.services.UserService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +15,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = RequestMethod.POST) //extra method
 public class RegisterAndLoginController {
     @Autowired
     private UserService userService;
@@ -34,6 +41,11 @@ public class RegisterAndLoginController {
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
+    // @GetMapping("/api/user")
+    // public ResponseEntity<List<User>> getUser(){
+    //     return new ResponseEntity<>(userService.getUser(), HttpStatus.OK);
+    // }
+
     @PostMapping("/api/user/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
@@ -49,7 +61,7 @@ public class RegisterAndLoginController {
 
         User user = userService.getUserByUsername(loginRequest.getUsername());
 
-        return ResponseEntity.ok(new LoginResponse(null, token, user.getUsername(), user.getEmail(), user.getRole()));
+        return ResponseEntity.ok(new LoginResponse(user.getId(), token, user.getUsername(), user.getEmail(), user.getRole()));
     }
 }
 
